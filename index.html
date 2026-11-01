@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT DX-33 — digital vinyl player prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#e9e5dd;font-family:'DM Sans',sans-serif;color:#1c1a17;overflow-x:hidden}
+  button{font-family:inherit;cursor:pointer}
+  @keyframes orbitspin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  #stage{width:1280px;height:820px;padding:40px;display:flex;gap:40px;transform-origin:top left}
+  .mono{font-family:'DM Mono',monospace}
+  .plinth{position:relative;width:720px;height:652px;border:12px solid #4e301b;border-radius:16px;background:repeating-linear-gradient(0deg,#c8c7c3 0 1px,#d0cfcb 1px 3px,#c4c3bf 3px 4px);box-shadow:0 30px 60px rgba(40,30,15,.3);overflow:hidden}
+  .abs{position:absolute}
+  .chrome{background:linear-gradient(90deg,#8f8d88,#f4f3ef,#8f8d88)}
+  .knob{border-radius:50%;background:radial-gradient(circle at 40% 35%,#eceae5,#a3a19c 75%);box-shadow:0 3px 8px rgba(0,0,0,.3)}
+  .fascia{height:74px;border-radius:10px;background:#1e1e1d;border:6px solid #4e301b;display:flex;align-items:center;gap:8px;padding:0 12px}
+  .key{width:74px;height:44px;border-radius:4px;border:none;color:#1c1a17;font-size:10px;font-weight:700;letter-spacing:.04em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .key i{width:16px;height:3px;border-radius:1px;display:block}
+  .pill{height:30px;padding:0 12px;border-radius:15px;border:1px solid #a8a095;font-size:12px}
+  .round{border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .trk{height:29px;width:100%;display:flex;align-items:center;gap:12px;padding:0 10px;border:none;border-radius:7px;color:#1c1a17;font-size:13px;text-align:left}
+  .muted{color:#5c574f}
+  footer{padding:0 40px 40px;font-size:13px;color:#5c574f}
+  footer a{color:#9a560c}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div id="stage">
+  <div style="width:720px;display:flex;flex-direction:column;gap:14px">
+    <div class="plinth">
+      <div class="abs" style="left:22px;bottom:16px">
+        <div style="font-size:15px;font-weight:700;letter-spacing:.32em;color:#1d1c1a">ORBIT</div>
+        <div class="mono" style="font-size:10px;letter-spacing:.08em;color:#3a3833">DX‑33 STREAMING TURNTABLE</div>
+      </div>
+      <div id="status" class="abs mono" style="left:22px;top:14px;padding:5px 10px;border-radius:4px;background:#140b02;font-size:12px;color:#ffb347"></div>
+      <div class="abs" style="left:28px;top:48px;width:540px;height:540px;border-radius:50%;background:repeating-conic-gradient(#2a2a28 0 .9deg,#b9b8b4 .9deg 2deg);box-shadow:0 6px 18px rgba(0,0,0,.35)">
+        <div class="abs" style="left:10px;top:10px;width:520px;height:520px;border-radius:50%;background:#a9a8a4"></div>
+        <div id="disc" class="abs" style="left:20px;top:20px;width:500px;height:500px;border-radius:50%;overflow:hidden;animation:orbitspin 1.8s linear infinite">
+          <div id="labelText" class="abs" style="left:175px;top:175px;width:150px;height:150px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center"></div>
+          <div id="coverText" class="abs" style="left:0;right:0;bottom:74px;display:flex;flex-direction:column;align-items:center;gap:2px;text-shadow:0 1px 6px rgba(0,0,0,.35)"></div>
+        </div>
+        <div id="sheen" class="abs" aria-hidden="true" style="left:20px;top:20px;width:500px;height:500px;border-radius:50%;pointer-events:none"></div>
+        <div class="abs" aria-hidden="true" style="left:254px;top:254px;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#f4f1ea,#9e9a92 70%);box-shadow:0 2px 6px rgba(0,0,0,.5)"></div>
+      </div>
+      <div class="abs chrome" aria-hidden="true" style="left:652px;top:300px;width:14px;height:40px;border-radius:4px"></div>
+      <div class="abs knob" aria-hidden="true" style="left:610px;top:552px;width:52px;height:52px"><div class="abs" style="left:14px;top:14px;width:24px;height:24px;border-radius:50%;background:#1c1b19"></div></div>
+      <div class="abs mono" style="left:618px;top:607px;font-size:9px;color:#3a3833">PITCH</div>
+      <div class="abs" aria-hidden="true" style="left:628px;top:400px;width:24px;height:14px;border-radius:3px;background:#1c1b19"></div>
+      <div class="abs knob" aria-hidden="true" style="left:603px;top:53px;width:70px;height:70px"><div class="abs" style="left:21px;top:21px;width:28px;height:28px;border-radius:50%;background:#1c1b19"></div></div>
+      <div id="arm" class="abs chrome" aria-hidden="true" style="left:634px;top:48px;width:8px;height:460px;border-radius:4px;transform-origin:4px 40px;transition:transform .9s cubic-bezier(.3,.7,.3,1);box-shadow:3px 4px 6px rgba(0,0,0,.25)">
+        <div class="abs chrome" style="left:-12px;top:-20px;width:32px;height:36px;border-radius:6px"></div>
+        <div class="abs" style="left:-12px;top:-6px;width:32px;height:5px;background:#1c1b19"></div>
+        <div class="abs" style="left:-9px;bottom:-18px;width:26px;height:42px;border-radius:4px;background:linear-gradient(90deg,#a3a19c,#e6e5e1,#a3a19c);transform:rotate(22deg)">
+          <div class="abs" style="left:5px;top:10px;width:16px;height:22px;border-radius:2px;background:#1c1b19"></div>
+          <div id="cartLed" class="abs" style="left:9px;top:26px;width:8px;height:3px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fascia">
+      <div id="readout" class="mono" style="flex-grow:1;font-size:13px;color:#ffb347;background:#140b02;padding:8px 10px;border-radius:4px"></div>
+      <div id="keys" style="display:flex;gap:8px"></div>
+    </div>
+  </div>
+
+  <div style="width:440px;display:flex;flex-direction:column;gap:14px">
+    <div>
+      <div id="nowLabel" class="mono muted" style="font-size:12px;letter-spacing:.12em;text-transform:uppercase"></div>
+      <div id="title" style="font-size:30px;font-weight:700;line-height:1.1;margin-top:4px"></div>
+      <div id="artist" class="muted" style="font-size:15px;margin-top:4px"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:10px;background:#dcd6cb">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Disc view</div>
+        <div style="display:flex;gap:6px">
+          <button id="vPress" class="pill" type="button">Original pressing</button>
+          <button id="vCover" class="pill" type="button">Cover art</button>
+        </div>
+      </div>
+      <div id="note" style="font-size:12px;color:#3f3b35;line-height:1.4"></div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:14px"><span id="trackName" style="font-weight:500"></span><span id="time" class="mono muted"></span></div>
+      <div style="height:4px;border-radius:2px;background:#cfc9be;overflow:hidden;margin-top:6px"><div id="bar" style="height:4px;background:#1c1a17;width:0"></div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <button id="prev" type="button" aria-label="Previous track" class="round" style="width:44px;height:44px;border:1px solid #c3bcb0;background:transparent"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20L9 12l10-8v16z"/><path d="M5 19V5"/></svg></button>
+      <button id="play" type="button" aria-label="Play or pause" class="round" style="width:54px;height:54px;border:none;background:#1c1a17;color:#f2efe9"></button>
+      <button id="next" type="button" aria-label="Next track" class="round" style="width:44px;height:44px;border:1px solid #c3bcb0;background:transparent"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l10 8-10 8V4z"/><path d="M19 5v14"/></svg></button>
+      <div id="albumPct" class="mono muted" style="margin-left:auto;font-size:12px"></div>
+    </div>
+    <div id="sourceRow"></div>
+    <div id="library" style="display:flex;gap:12px"></div>
+    <div id="tracks" style="display:flex;flex-direction:column;gap:1px"></div>
+  </div>
+</div>
+<footer>Concept prototype — album names, labels and artwork are fictional. <a href="renders.html">See the hardware renders</a>.</footer>
+</div>
+
+<script>
+const ALBUMS = [
+  { id:'a1', src:'stream', title:'Low Tide Radio', artist:'Marisol Vey', year:'2026', ink:'#fff4e6',
+    art:'radial-gradient(circle at 34% 34%, #ffd27a 0 17%, rgba(0,0,0,0) 17.6%), linear-gradient(180deg, #ff8a5c 0%, #d0487a 52%, #2a1846 100%)',
+    vinyl:'#0c0c0c', groove:'#1a1a1a', label:'#e2762e', labelInk:'#1a0f08', labelName:'TIDEWATER', cat:'TW‑0112 · STEREO',
+    note:'Matched: Tidewater TW‑0112 · first pressing 2026 · 180 g black vinyl · label scan from release database',
+    tracks:[['Undertow',214],['Salt in the Speakers',187],['Harbour Lights',241],['Static Gulls',198],['Ebb',263]] },
+  { id:'a2', src:'stream', title:'Concrete Bloom', artist:'The Ostrava Set', year:'2025', ink:'#10262a',
+    art:'radial-gradient(circle at 50% 50%, #f3ead7 0 30%, rgba(0,0,0,0) 30.5%), conic-gradient(from 20deg, #1f6f78 0 25%, #f2a541 0 50%, #e9e2d0 0 75%, #c8553d 0 100%)',
+    vinyl:'#1f5f66', groove:'#2b7881', label:'#f3ead7', labelInk:'#10262a', labelName:'PANEL', cat:'PNL‑07 · LTD',
+    note:'Matched: Panel Records PNL‑07 · 2025 · teal marble, limited run · label scan from release database',
+    tracks:[['Brutalist Spring',231],['Tram 9',176],['Paneláky',254],['Ivy on Rebar',205]] },
+  { id:'a3', src:'stream', title:'Night Bus Home', artist:'Kiro Nakamura', year:'2024', ink:'#ffe08a',
+    art:'radial-gradient(circle at 70% 28%, #ffe08a 0 7%, rgba(0,0,0,0) 7.5%), repeating-linear-gradient(135deg, #0d1b2a 0 26px, #17324f 26px 52px)',
+    vinyl:'#7d0f14', groove:'#97232a', label:'#17324f', labelInk:'#ffe08a', labelName:'LATE LINE', cat:'LL‑003R',
+    note:'Matched: Late Line LL‑003R · 2024 reissue · translucent red · label scan from release database',
+    tracks:[['Last Departure',248],['Sodium Lamps',199],['Window Seat',222],['Terminus',281],['Morning Shift',190]] },
+  { id:'b1', src:'bt', title:'Demo Tapes ’19', artist:'Local files', year:'On your phone', ink:'#141414',
+    art:'linear-gradient(90deg, rgba(0,0,0,0) 0 40%, #141414 40% 60%, rgba(0,0,0,0) 60%), linear-gradient(180deg, #e4dfd2, #b9b2a3)',
+    vinyl:'#0c0c0c', groove:'#1a1a1a', label:'#d9d4c7', labelInk:'#141414', labelName:'LOCAL', cat:'GENERATED LABEL',
+    note:'No vinyl release in the database · showing a generated label built from the track info',
+    tracks:[['Garage Take 3',201],['Untitled (B)',143],['Voice Memo 112',96],['Bridge Idea',172]] },
+  { id:'b2', src:'bt', title:'Kitchen Sessions', artist:'Local files', year:'On your phone', ink:'#ffffff',
+    art:'repeating-radial-gradient(circle at 50% 50%, #2f5d3a 0 18px, #8fbf7a 18px 36px)',
+    vinyl:'#0c0c0c', groove:'#1a1a1a', label:'#8fbf7a', labelInk:'#10220f', labelName:'LOCAL', cat:'GENERATED LABEL',
+    note:'No vinyl release in the database · showing a generated label built from the track info',
+    tracks:[['Kettle Song',188],['Two Chairs',233],['Late Dishes',207]] }
+];
+const SERVICES = ['Spotify Connect','TIDAL Connect','AirPlay 2','Google Cast'];
+const S = { source:'stream', service:0, albumId:'a1', trackIdx:0, elapsed:37, playing:true, rpm:33, view:'pressing' };
+const $ = (id) => document.getElementById(id);
+const fmt = (s) => Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const album = () => ALBUMS.find((a) => a.id === S.albumId);
+function set(p) { Object.assign(S, p); render(); }
+
+function discBg(a) {
+  const total = a.tracks.reduce((n, t) => n + t[1], 0);
+  const outer = 246, inner = 92; let acc = 0; const gaps = [];
+  for (let i = 0; i < a.tracks.length - 1; i++) {
+    acc += a.tracks[i][1];
+    const r = outer - (outer - inner) * (acc / total);
+    gaps.push(`radial-gradient(circle at 50% 50%, rgba(0,0,0,0) ${(r-1.5).toFixed(1)}px, rgba(255,255,255,0.14) ${(r-1.5).toFixed(1)}px ${(r+1.5).toFixed(1)}px, rgba(0,0,0,0) ${(r+1.5).toFixed(1)}px)`);
+  }
+  return [`radial-gradient(circle at 50% 50%, ${a.label} 0 75px, ${a.vinyl} 75px ${inner}px, rgba(0,0,0,0) ${inner}px)`, ...gaps,
+    `repeating-radial-gradient(circle at 50% 50%, ${a.vinyl} 0 1.5px, ${a.groove} 1.5px 3px)`].join(', ');
+}
+const GLARE = 'radial-gradient(ellipse 60% 35% at 32% 22%, rgba(255,255,255,0.20), rgba(255,255,255,0) 70%)';
+const SHEEN = 'conic-gradient(from 20deg, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.13) 22deg, rgba(255,255,255,0) 50deg, rgba(255,255,255,0) 180deg, rgba(255,255,255,0.13) 202deg, rgba(255,255,255,0) 230deg)';
+
+function toSource(src) { if (S.source !== src) set({ source: src, albumId: src === 'stream' ? 'a1' : 'b1', trackIdx: 0, elapsed: 0, playing: true }); }
+
+function render() {
+  const a = album(), stream = S.source === 'stream', pressing = S.view === 'pressing';
+  const total = a.tracks.reduce((n, t) => n + t[1], 0);
+  const before = a.tracks.slice(0, S.trackIdx).reduce((n, t) => n + t[1], 0);
+  const dur = a.tracks[S.trackIdx][1], progress = (before + S.elapsed) / total;
+
+  const disc = $('disc');
+  disc.style.background = pressing ? discBg(a) : a.art;
+  disc.style.animationDuration = (S.rpm === 45 ? 1.333 : 1.8) + 's';
+  disc.style.animationPlayState = S.playing ? 'running' : 'paused';
+  $('sheen').style.background = pressing ? GLARE + ', ' + SHEEN : GLARE;
+  $('labelText').style.display = pressing ? 'flex' : 'none';
+  $('labelText').style.color = a.labelInk;
+  $('labelText').innerHTML = `<div style="font-size:15px;font-weight:700;letter-spacing:.06em;margin-bottom:44px">${esc(a.labelName)}</div><div style="font-size:10px;font-weight:700">${esc(a.title)}</div><div style="font-size:8px;letter-spacing:.1em;text-transform:uppercase">${esc(a.artist)}</div><div class="mono" style="font-size:7px">${esc(a.cat)}</div>`;
+  $('coverText').style.display = pressing ? 'none' : 'flex';
+  $('coverText').innerHTML = `<div style="font-size:26px;font-weight:700;color:${a.ink}">${esc(a.title)}</div><div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:${a.ink}">${esc(a.artist)}</div>`;
+  $('arm').style.transform = `rotate(${S.playing ? (23 + 18 * progress).toFixed(2) : 0}deg)`;
+  $('cartLed').style.background = S.playing ? '#ffad42' : '#4a4843';
+  $('status').textContent = (S.rpm === 45 ? '45' : '33⅓') + '  ' + (stream ? 'WI‑FI · ' + SERVICES[S.service].toUpperCase() : 'BLUETOOTH');
+  $('readout').textContent = (S.playing ? '▶ ' : '❚❚ ') + 'A' + (S.trackIdx + 1) + '  ' + fmt(S.elapsed);
+
+  const keys = [
+    ['START', S.playing, () => set({ playing: !S.playing })],
+    ['33⅓', S.rpm === 33, () => set({ rpm: 33 })],
+    ['45', S.rpm === 45, () => set({ rpm: 45 })],
+    ['WI‑FI', stream, () => toSource('stream')],
+    ['BT', !stream, () => toSource('bt')],
+    ['DISC VIEW', !pressing, () => set({ view: pressing ? 'cover' : 'pressing' })]
+  ];
+  $('keys').replaceChildren(...keys.map(([label, on, fn]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'key'; b.setAttribute('aria-pressed', on);
+    b.style.background = on ? 'linear-gradient(180deg,#bdbcb8,#d6d5d1)' : 'linear-gradient(180deg,#e9e8e4,#c9c8c4)';
+    b.style.boxShadow = on ? 'inset 0 2px 3px rgba(0,0,0,.35)' : '0 3px 0 #7c7a75';
+    b.innerHTML = `<i style="background:${on ? '#ffad42' : '#6a6862'}"></i><span>${label}</span>`;
+    b.onclick = fn; return b;
+  }));
+
+  $('nowLabel').textContent = 'Now spinning · ' + (stream ? SERVICES[S.service] : 'Bluetooth');
+  $('title').textContent = a.title;
+  $('artist').textContent = a.artist + ' · ' + a.year;
+  const pill = (el, on) => { el.style.background = on ? '#1c1a17' : 'transparent'; el.style.color = on ? '#f2efe9' : '#1c1a17'; };
+  pill($('vPress'), pressing); pill($('vCover'), !pressing);
+  $('note').textContent = pressing ? a.note : 'Showing the streaming / phone cover art, cropped to the circle';
+  $('trackName').textContent = a.tracks[S.trackIdx][0];
+  $('time').textContent = fmt(S.elapsed) + ' / ' + fmt(dur);
+  $('bar').style.width = Math.min(100, S.elapsed / dur * 100) + '%';
+  $('albumPct').textContent = 'Album ' + Math.round(progress * 100) + '%';
+  $('play').innerHTML = S.playing
+    ? '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 5v14"/><path d="M16 5v14"/></svg>'
+    : '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M7 4l13 8-13 8V4z"/></svg>';
+
+  const row = $('sourceRow');
+  if (stream) {
+    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px';
+    row.replaceChildren(...SERVICES.map((n, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = n;
+      b.style.cssText = `height:32px;padding:0 12px;border-radius:16px;border:1px solid #c3bcb0;font-size:13px;background:${i === S.service ? '#1c1a17' : 'transparent'};color:${i === S.service ? '#f2efe9' : '#1c1a17'}`;
+      b.onclick = () => set({ service: i }); return b;
+    }));
+  } else {
+    row.style.cssText = 'display:flex;align-items:center;gap:10px;font-size:13px;color:#3f3b35';
+    row.innerHTML = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1c1a17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l10 10-5 5V2l5 5L7 17"/></svg><span>Phone connected · title and art read over Bluetooth (AVRCP 1.6)</span>';
+  }
+  $('library').replaceChildren(...ALBUMS.filter((x) => x.src === S.source).map((x) => {
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Play ' + x.title);
+    b.style.cssText = 'width:92px;display:flex;flex-direction:column;align-items:center;gap:5px;padding:0;border:none;background:transparent';
+    const thumb = pressing ? `radial-gradient(circle at 50% 50%, ${x.label} 0 34%, ${x.vinyl} 35%)` : x.art;
+    b.innerHTML = `<span style="width:54px;height:54px;border-radius:50%;display:block;background:${thumb};box-shadow:0 0 0 3px ${x.id === a.id ? '#9a560c' : 'transparent'}"></span><span style="font-size:12px;text-align:center;line-height:1.2;color:#1c1a17">${esc(x.title)}</span>`;
+    b.onclick = () => set({ albumId: x.id, trackIdx: 0, elapsed: 0, playing: true }); return b;
+  }));
+  $('tracks').replaceChildren(...a.tracks.map((t, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'trk';
+    b.style.background = i === S.trackIdx ? '#dcd6cb' : 'transparent';
+    b.innerHTML = `<span class="mono muted" style="width:18px;font-size:12px">${i + 1}</span><span style="flex-grow:1;font-weight:${i === S.trackIdx ? 700 : 400}">${esc(t[0])}</span><span class="mono muted" style="font-size:12px">${fmt(t[1])}</span>`;
+    b.onclick = () => set({ trackIdx: i, elapsed: 0, playing: true }); return b;
+  }));
+}
+
+$('vPress').onclick = () => set({ view: 'pressing' });
+$('vCover').onclick = () => set({ view: 'cover' });
+$('play').onclick = () => set({ playing: !S.playing });
+$('prev').onclick = () => (S.elapsed > 3 || S.trackIdx === 0) ? set({ elapsed: 0 }) : set({ trackIdx: S.trackIdx - 1, elapsed: 0 });
+$('next').onclick = () => { if (S.trackIdx + 1 < album().tracks.length) set({ trackIdx: S.trackIdx + 1, elapsed: 0 }); };
+
+setInterval(() => {
+  if (!S.playing) return;
+  const a = album(), dur = a.tracks[S.trackIdx][1];
+  if (S.elapsed + 1 < dur) set({ elapsed: S.elapsed + 1 });
+  else if (S.trackIdx + 1 < a.tracks.length) set({ trackIdx: S.trackIdx + 1, elapsed: 0 });
+  else set({ trackIdx: 0, elapsed: 0, playing: false });
+}, 1000);
+
+function fit() {
+  const s = Math.min(1, window.innerWidth / 1280);
+  $('stage').style.transform = `scale(${s})`;
+  $('stage').style.marginBottom = (820 * s - 820) + 'px';
+}
+window.addEventListener('resize', fit);
+fit(); render();
+</script>
+</body>
+</html>
